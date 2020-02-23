@@ -1,0 +1,38 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="col-lg-8">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login Form</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" action="login" method="POST">
+                            {% csrf_token%}
+                        <div class="form-group">
+                            <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                        </div>
+                            
+                        <input type="submit" value="Login" class="btn btn-info btn-block">
+                        
+                    </form>
+                </div>
+                <div>{%for message in messages%} {{message}} {%endfor%}</div>
+                <div class="meta-wrap">
+                    <p class="meta">
+                        <span>Not have a account yet?</span>
+                        <span>
+                            <a href="{% url 'register'%}">Register</a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>       
+{%endblock%}

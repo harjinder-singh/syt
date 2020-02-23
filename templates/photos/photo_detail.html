@@ -1,0 +1,34 @@
+{%extends 'base.html'%}
+{% load custom_tags%}
+{%block content%}
+<div class="col-lg-8">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="blog-entry ftco-animate">
+                <a href="#" class="img img-2" style="background-image: url({{object.pic.url}});"></a>
+                <div class="text text-2 pt-2 mt-3">
+                    <div class="meta-wrap">
+                        <p class="meta">
+                            <span>Dec 14, 2018</span>
+                            <span>
+                                {% if not liked%}
+                                    <a href="{% url 'like' pic_id=object.id %}">Like</a>
+                                {%else%}
+                                    <a href="{% url 'unlike' pic_id=object.id %}">Unlike</a>
+                                {%endif%}
+                            </span>
+                            <span>{{object.comments.all.count}} Comment</span>
+                            <span>{% total_likes object.id%} Likes</span>
+                            <span><a href="{% url 'photo_edit' object.id %}">Edit</a></span>
+                            <span><a href="{% url 'photo_delete' object.id %}">Delete</a></span>
+                        </p>
+                    </div>
+                    <p class="mb-4">{{object.description}}</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+  
+  </div>
+  {%endblock%}

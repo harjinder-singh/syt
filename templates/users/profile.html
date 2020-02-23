@@ -1,0 +1,53 @@
+{%extends 'base.html'%}
+{%block content%}
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="profile">
+                <div class="profile-image"> 
+                    <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">    
+                </div> 
+                <div class="profile-user-settings">
+                    <h1 class="profile-user-name">{{pr_user.username}}</h1>
+                    <button class="btn profile-edit-btn">Edit Profile</button>
+                    {%if user != pr_user%}
+                        {% if not following%}
+                            <a href="{% url 'follow' user_id=pr_user.id %}" class="btn btn-info" role="button">Follow</a> </a>
+                        {%else%}
+                            <button type="button" class="btn btn-primary" >Following</button>
+                        {%endif%}
+                    {%endif%}
+                </div>
+                <div class="profile-stats">
+                    <ul>
+                        <li><span class="profile-stat-count">{{pr_user.photos.all.count}}</span> posts</li>
+                        <li><span class="profile-stat-count">{{pr_user.followers.all.count}}</span> followers</li>
+                        <li><span class="profile-stat-count">{{pr_user.following.all.count}}</span> following</li>
+                    </ul>
+                </div>
+                <div class="profile-bio">
+                    <p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+                </div>    
+            </div>
+            <!-- End of profile section -->
+        </div>
+        <!-- End of container -->
+        <main>
+            <div class="container"> 
+                <div class="gallery">
+                    {% for image in pr_user.photos.all%}
+                    <div class="gallery-item" tabindex="0">
+                        <img src="{{image.pic.url}}" class="gallery-image" alt="">
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fa fa-heart" aria-hidden="true"></i> {{image.likes.count}}</li>
+                                <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fa fa-comment" aria-hidden="true"></i> {{image.comments.count}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+                <!-- End of gallery -->
+            </div><!-- END-->
+        </main>
+    </div>
+{%endblock%}

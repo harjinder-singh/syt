@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+{%block content%}
+    <div class="container">
+        <div class="row text-center text-lg-left">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for pop in all_users%}
+                    <tr>
+                        <th scope="row">{{pop.id}}</th>
+                        <td>{{pop.username}}</td>
+                        <td>{{pop.first_name}}</td>
+                        <td>{{pop.last_name}}</td>
+                        <td>
+                            {% if not pop.id in following%}
+                                <a href="{% url 'follow' user_id=pop.id %}">follow</a> </a>
+                            {%else%}
+                                Already following
+                            {%endif%}
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{%endblock%}
