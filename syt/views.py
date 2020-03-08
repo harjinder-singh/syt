@@ -15,4 +15,5 @@ def index(request):
 def profile(request, pk, template_name='users/profile.html'):
     pr_user = User.objects.get(pk=pk)
     following = request.user.following.filter(following_id=pk)
-    return render(request, template_name, {'pr_user': pr_user, 'following':following})
+    total_following = request.user.following.values_list('following_id', flat=True)
+    return render(request, template_name, {'pr_user': pr_user, 'following':following, 'total_following':total_following})

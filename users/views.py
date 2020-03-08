@@ -73,3 +73,9 @@ def follow(request, user_id):
     Follower.objects.create(follower=request.user, following=User.objects.filter(pk = user_id)[0])
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+def unfollow(request, fol_id):
+
+    fol = Follower.objects.get(pk=fol_id)
+    fol.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+

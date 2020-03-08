@@ -20,8 +20,8 @@
                 <div class="profile-stats">
                     <ul>
                         <li><span class="profile-stat-count">{{pr_user.photos.all.count}}</span> posts</li>
-                        <li><span class="profile-stat-count">{{pr_user.followers.all.count}}</span> followers</li>
-                        <li><span class="profile-stat-count">{{pr_user.following.all.count}}</span> following</li>
+                        <li data-toggle="modal" data-target="#followers"><span class="profile-stat-count" >{{pr_user.followers.all.count}}</span> followers</li>
+                        <li data-toggle="modal" data-target="#following"><span class="profile-stat-count">{{pr_user.following.all.count}}</span> following</li>
                     </ul>
                 </div>
                 <div class="profile-bio">
@@ -50,4 +50,63 @@
             </div><!-- END-->
         </main>
     </div>
+    <div class="modal fade" id="followers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="followersModalLabel">Followers</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {% for fol in pr_user.followers.all%}
+                <div class='row'>
+                        <div class='col-md-8'>{{fol.follower.username}}</div>
+                        <div class='col-md-4'>
+                            {% if pr_user == user%}
+                                <a href="{%url 'unfollow' fol.id%}" class="btn btn-danger">Remove</a>
+                            {% endif%}
+                                {%if not fol.follower.id in total_following %}
+                                    <a href="{%url 'follow' fol.follower.id%}" class="btn btn-success">Follow</a>
+                                {%endif%}
+                            </div>
+                </div>
+              
+              {% endfor%}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="following" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="followingModalLabel">Following</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {% for fol in pr_user.following.all%}
+                <div class='row'>
+                    <div class='col-md-8'>{{fol.following.username}}</div>
+                    <div class='col-md-4'>
+                        {% if pr_user == user%}
+                            <a href="{%url 'unfollow' fol.id%}" class="btn btn-danger">Unfollow</a>
+                        {%endif%}
+                    </div>
+                </div>
+              {% endfor%}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 {%endblock%}

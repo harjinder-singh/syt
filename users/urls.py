@@ -9,4 +9,5 @@ urlpatterns = [
     path('login', views.login, name="login"),
     path('logout', views.logout, name="logout"),
     url(r'^follow/(?P<user_id>\d+)/$', views.follow, name='follow'),
+    url(r'^unfollow/(?P<fol_id>\d+)/$', views.unfollow, name='unfollow'),
 ]
