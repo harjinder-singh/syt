@@ -25,7 +25,7 @@ SECRET_KEY = '!_6294qj2@75wj6x5w7f=qen7qal#v103e#%(!9z2u&31o&_eo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['showyourtalent.herokuapp.com']
+ALLOWED_HOSTS = ['showyourtalent.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
