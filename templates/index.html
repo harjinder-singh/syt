@@ -9,7 +9,7 @@
                         <div class="text text-2 pt-2 mt-3">
                             <div class="meta-wrap">
                                 <p class="meta">
-                                    <span>{{image.created_at | date:'Y-m-d H:i'}}</span>
+                                    <span>{{image.created_at | date:'F d,Y'}}</span>
                                     <span>
                                         {% if not image.id in liked%}
                                             <a href="{% url 'like' pic_id=image.id %}">Like</a>

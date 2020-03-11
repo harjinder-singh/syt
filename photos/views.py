@@ -3,6 +3,8 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User, auth
 from .models import Photo
 from .forms import *
+from comments.models import Comment
+from comments.forms import CommentForm
 from likes.models import *
 from django.contrib.auth.decorators import login_required
 
@@ -17,8 +19,18 @@ def photo_list(request, template_name='photos/photo_list.html'):
 
 def photo_view(request, pk, template_name='photos/photo_detail.html'):
     image = get_object_or_404(Photo, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user_id = request.user.id
+            comment.pic_id = pk
+            comment.save()
+    form = CommentForm()
     liked = Like.objects.filter(pic_id = image.id, user_id=request.user.id).exists()
-    return render(request, template_name, {'object':image, 'liked': liked})
+    comments = image.comments.all
+    is_owner = (image.user.id == request.user.id)
+    return render(request, template_name, {'object':image, 'liked': liked, 'comments':comments, 'form':form, 'is_owner': is_owner})
 
 def photo_create(request, template_name='photos/photo_form.html'):
     form = PhotoForm(request.POST, request.FILES)
