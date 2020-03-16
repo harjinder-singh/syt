@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('<int:pk>', views.profile, name='profile'),
+    path('explore/', views.explore, name='explore'),
     path('users/', include('users.urls')),
     path('images/', include('photos.urls'))
 ]

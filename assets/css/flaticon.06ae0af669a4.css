@@ -1,0 +1,39 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 12/08/2018 13:24
+  	*/
+
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/flaticon/font/Flaticon.76614d2ff234.eot");
+  src: url("../fonts/flaticon/font/Flaticon.76614d2ff234.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/flaticon/font/Flaticon.5e3a3d7e4a37.woff") format("woff"),
+       url("../fonts/flaticon/font/Flaticon.c08e6347b928.ttf") format("truetype"),
+       url("../fonts/flaticon/font/Flaticon.54fb9e314378.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/flaticon/font/Flaticon.54fb9e314378.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-camera:before { content: "\f100"; }

@@ -7,6 +7,7 @@ from comments.models import Comment
 from comments.forms import CommentForm
 from likes.models import *
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 @login_required(login_url='/users/login')
 def photo_list(request, template_name='photos/photo_list.html'):
@@ -47,12 +48,17 @@ def photo_update(request, pk, template_name='photos/photo_form.html'):
         return redirect('photo_list')
     return render(request, template_name, {'form':form})
 
+@login_required(login_url='/users/login')
 def photo_delete(request, pk, template_name='photos/photo_confirm_delete.html'):
-    image = get_object_or_404(Photo, pk=pk)    
-    if request.method=='POST':
-        image.delete()
-        return redirect('photo_list')
-    return render(request, template_name, {'object':image})
+    image = get_object_or_404(Photo, pk=pk)
+    if (image.user.id == request.user.id):   
+        if request.method=='POST':
+            image.delete()
+            return redirect('photo_list')
+        return render(request, template_name, {'object':image})
+    else:
+        messages.error(request, 'You are not authorised to delete this pic.')
+        return redirect('/images')
 
 def like_image(request, pic_id):
     pic = Photo.objects.filter(pk=pic_id)[0]

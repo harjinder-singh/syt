@@ -45,7 +45,7 @@
                             <li><a href="{% url 'profile' user.id%}">Profile</a></li>
                         {% endif %}
                         
-                        <li class="colorlib-active"><a href="/images">Posts</a></li>
+                        <li class="colorlib-active"><a href="/explore">Posts</a></li>
                         <li><a href="#">Contact</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="/users/logout">Logout</a></li>
@@ -76,12 +76,26 @@
 	                        </div>
 	                    </div>
 				    </div>
-			    </section>
+          </section>
+          {% if messages %}
+            {% for message in messages %}
+            <div class="row">
+              <div class="col-sm-10">
+                <div class="alert alert-danger alert_top_spacing no-spacing-alert" style="margin-left: 10px" >
+                  <button class="close" data-dismiss="alert" type="button">
+                    &times;
+                  </button>
+                  {{message}}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% endif %}
 			    <section class="ftco-section">
                     <div class="container">
                         <div class="row">
-                            {%block content%}
-                            {% endblock%}
+                          {%block content%}
+                          {% endblock%}
                         </div>
                     </div>
                 </section>
@@ -210,6 +224,10 @@
             $("#id_width").val(cropData["width"]);
             $("#modalCrop").modal("hide");
           });
+
+          setTimeout(function() {
+            $('.alert_top_spacing').fadeOut('slow');
+          }, 3000);
     
         });
       </script>
