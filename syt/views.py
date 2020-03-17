@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from photos.models import *
+from comments.forms import CommentForm
 
 # Create your views here.
 @login_required(login_url='/users/login')
@@ -9,8 +10,17 @@ def index(request):
     pics = Photo.objects.filter(user_id__in=following)
     pics |= Photo.objects.filter(user_id=request.user.id)
     pics = pics.order_by('-created_at')
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user_id = request.user.id
+            comment.pic_id = request.POST['pic']
+            comment.save()
+    form = CommentForm()
     data = {}
     data['photos'] = pics
+    data['form'] = form
     if request.user.is_authenticated:
         liked = request.user.pic_likes.values_list('pic_id', flat=True)
         data['liked'] = list(liked)

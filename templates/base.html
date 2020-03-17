@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Capture - Free Bootstrap 4 Template by Colorlib</title>
+        <title>S.Y.T- ShowYourTalent</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
@@ -39,13 +39,13 @@
                 <h1 id="colorlib-logo"><a href="index.html"><span class="flaticon-camera"></span>SYT</a></h1>
                 <nav id="colorlib-main-menu" role="navigation">
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/images">Gallery</a></li>
+                        <li class={% if request.resolver_match.url_name == "index" %} "colorlib-active" {%else%} "" {%endif%}><a href="/">Home</a></li>
+                        <li class={% if request.resolver_match.url_name == "photo_list" %} "colorlib-active" {%else%} "" {%endif%}><a href="/p">Gallery</a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'profile' user.id%}">Profile</a></li>
+                            <li class={% if request.resolver_match.url_name == "profile" %} "colorlib-active" {%else%} "" {%endif%}><a href="{% url 'profile' user.id%}">Profile</a></li>
                         {% endif %}
                         
-                        <li class="colorlib-active"><a href="/explore">Posts</a></li>
+                        <li class={% if request.resolver_match.url_name == "explore" %} "colorlib-active" {%else%} "" {%endif%}><a href="/explore">Posts</a></li>
                         <li><a href="#">Contact</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="/users/logout">Logout</a></li>
@@ -68,7 +68,7 @@
                 </div>
 		    </aside> <!-- END COLORLIB-ASIDE -->
 		    <div id="colorlib-main">
-			    <section class="ftco-section bg-light ftco-bread">
+			    <!--<section class="ftco-section bg-light ftco-bread">
 				    <div class="container">
 					    <div class="row no-gutters slider-text align-items-center">
 	                        <div class="col-md-9 ftco-animate">
@@ -76,7 +76,7 @@
 	                        </div>
 	                    </div>
 				    </div>
-          </section>
+          </section>-->
           {% if messages %}
             {% for message in messages %}
             <div class="row">
