@@ -40,7 +40,6 @@ def photo_create(request, template_name='photos/photo_form.html'):
     data['user'] = str(request.user.id)
     data._mutable = False
     form = PhotoForm(data, request.FILES, hide_condition=True)
-    import pdb; pdb.set_trace()
     if form.is_valid():
         form.save()
         return redirect('photo_list')
