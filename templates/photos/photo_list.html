@@ -5,6 +5,14 @@
     
         <div class="col-lg-12">
             <div class="row">
+                <div class="col-md-4">
+                    <div class="blog-entry ftco-animate">
+                        <a href="{% url 'photo_new'%}" class="img img-2" style="background-image: url(/static/images/add_image.png);height:100px;width:100px;"></a>
+                        <p class="mb-4">Add More Pics +</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 {% for image in object_list%}
                     <div class="col-md-4">
                         <div class="blog-entry ftco-animate">
@@ -28,15 +36,14 @@
                                                 <a href="{% url 'unlike' pic_id=image.id %}">Unlike</a>
                                             {%endif%}
                                         </span>
-                                        <span>{{image.comments.all.count}} Comment</span>
+                                        <span><a href="{% url 'photo_view' image.id%}">{{image.comments.all.count}} Comment</a></span>
                                     </p>
                                 </div>
-                                <p class="mb-4">{{image.description}}</p>
+                                <p class="mb-4"><a href="{% url 'profile' image.user.id%}">{{ image.user.username }}</a></b> {{image.description}}</p>
                             </div>
                         </div>
                     </div>
                 {%endfor%}
             </div>
-            <a href="{% url 'photo_new' %}">+add more pics </a>
         </div>
 {%endblock%}

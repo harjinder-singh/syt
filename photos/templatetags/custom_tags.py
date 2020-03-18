@@ -18,3 +18,7 @@ def total_followers(user_id):
 @register.simple_tag
 def pic_comments(pic_id):
     return Comment.objects.filter(pic_id=pic_id)
+
+@register.simple_tag
+def last_comment(pic_id):
+    return Comment.objects.filter(pic_id=26).latest('created_at')

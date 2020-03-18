@@ -11,7 +11,14 @@ class PhotoForm(forms.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ('pic', 'description', 'user', 'x', 'y', 'width', 'height', )
+        fields = ('pic', 'description','user', 'x', 'y', 'width', 'height', )
+    
+    def __init__(self, *args, **kwargs):
+        from django.forms.widgets import HiddenInput
+        hide_condition = kwargs.pop('hide_condition',None)
+        super(PhotoForm, self).__init__(*args, **kwargs)
+        if hide_condition:
+            self.fields['user'].widget = HiddenInput()
 
     def save(self):
         photo = super(PhotoForm, self).save()

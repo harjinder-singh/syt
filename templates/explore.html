@@ -4,7 +4,7 @@
         <div class="row">
             {% for image in photos%}
                 <div class="col-md-4">
-                    <div class="blog-entry ftco-animate">
+                    <div class="blog-entry ftco-animate" style="margin-bottom: 30px;">
                         <div class="text text-2 pt-2 mt-3">
                             <div class="meta-wrap">
                                 <p class="meta">
@@ -25,10 +25,10 @@
                                             <a href="{% url 'unlike' pic_id=image.id %}">Unlike</a>
                                         {%endif%}
                                     </span>
-                                    <span>{{image.comments.all.count}} Comment</span>
+                                    <span><a href="{% url 'photo_view' image.id%}">{{image.comments.all.count}} Comment</a></span>
                                 </p>
                             </div>
-                            <p class="mb-4">{{image.description}}</p>
+                            <p class="mb-4"><a href="{% url 'profile' image.user.id%}">{{ image.user.username }}</a></b> {{image.description}}</p>
                         </div>
                     </div>
                 </div>

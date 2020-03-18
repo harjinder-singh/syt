@@ -8,6 +8,7 @@ from comments.forms import CommentForm
 from likes.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 @login_required(login_url='/users/login')
 def photo_list(request, template_name='photos/photo_list.html'):
@@ -34,7 +35,12 @@ def photo_view(request, pk, template_name='photos/photo_detail.html'):
     return render(request, template_name, {'object':image, 'liked': liked, 'comments':comments, 'form':form, 'is_owner': is_owner})
 
 def photo_create(request, template_name='photos/photo_form.html'):
-    form = PhotoForm(request.POST, request.FILES)
+    data = request.POST
+    data._mutable = True
+    data['user'] = str(request.user.id)
+    data._mutable = False
+    form = PhotoForm(data, request.FILES, hide_condition=True)
+    import pdb; pdb.set_trace()
     if form.is_valid():
         form.save()
         return redirect('photo_list')
@@ -58,14 +64,14 @@ def photo_delete(request, pk, template_name='photos/photo_confirm_delete.html'):
         return render(request, template_name, {'object':image})
     else:
         messages.error(request, 'You are not authorised to delete this pic.')
-        return redirect('/images')
+        return redirect('/p')
 
 def like_image(request, pic_id):
     pic = Photo.objects.filter(pk=pic_id)[0]
     Like.objects.create(user=request.user, pic=pic)
-    return redirect('/images')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def unlike_image(request, pic_id):
     like = Like.objects.get(pic_id=pic_id, user_id= request.user.id)
     like.delete()
-    return redirect('/images')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
