@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from unipath import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).ancestor(3)
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,7 @@ SECRET_KEY = '!_6294qj2@75wj6x5w7f=qen7qal#v103e#%(!9z2u&31o&_eo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['showyourtalent.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['showyourtalent.herokuapp.com', 'localhost', '15.222.46.23']
 
 
 # Application definition
