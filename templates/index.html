@@ -11,7 +11,7 @@
                         <div class="text text-2 pt-2 mt-3">
                             <div class="meta-wrap">
                                 <p class="meta">
-                                    <span><a href="{% url 'profile' image.user_id%}" class="img" style="background-image: url(/static/images/default.png);height:30px;width:30px;float:left"></a></span>
+                                    <span><a href="{% url 'profile' image.user_id%}" class="img" style="background-image: url({{image.user.pic.url}});height:30px;width:30px;float:left"></a></span>
                                     <span><a href="{% url 'profile' image.user_id%}" style="float:left;margin-left:5%;">{{image.user.username}}</a></span>   
                                 </p>
                             </div>

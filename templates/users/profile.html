@@ -5,11 +5,11 @@
         <div class="row">
             <div class="profile">
                 <div class="profile-image"> 
-                    <img src="{% static 'images/default.png' %}" width="152px" height="152px" alt="">    
+                    <img src="{{pr_user.pic.url}}" width="152px" height="152px" alt="">    
                 </div> 
                 <div class="profile-user-settings">
                     <h1 class="profile-user-name">{{pr_user.username}}</h1>
-                    <button class="btn profile-edit-btn">Edit Profile</button>
+                    <a href="{% url 'update_user' pr_user.id %}" class="btn btn-info" role="button">Edit Profile</a>
                     {%if user != pr_user%}
                         {% if not following%}
                             <a href="{% url 'follow' user_id=pr_user.id %}" class="btn btn-info" role="button">Follow</a> </a>
@@ -26,7 +26,7 @@
                     </ul>
                 </div>
                 <div class="profile-bio">
-                    <p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+                    <p><span class="profile-real-name">Bio</span> {{pr_user.description}}</p>
                 </div>    
             </div>
             <!-- End of profile section -->

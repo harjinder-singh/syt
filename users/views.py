@@ -1,8 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import auth
 from followers.models import *
+from .models import CustomUser
 from django.http import HttpResponseRedirect
+from .forms import CustomUserCreationForm
+from .forms import CustomUserChangeForm
+from django.contrib.auth import get_user_model
+User = get_user_model()
 #from django.contrib.auth.decorators import login_required
 
 def index(request):
@@ -15,36 +20,37 @@ def index(request):
     else:
         return render(request, 'users/index.html',{'all_users':all_users, 'following': following})
 
-def register(request):
-    print(request.user)
+def register(request, template_name='users/register.html'):
+    form = CustomUserCreationForm()
     if request.user.is_authenticated:
         return redirect('/')
     else:
         if request.method == 'POST':
-            first_name = request.POST['first_name']
-            last_name = request.POST['last_name']
+            form = CustomUserCreationForm(request.POST, request.FILES)
             username = request.POST['username']
-            password1 = request.POST['password']
-            password2 = request.POST['password_confirmation']
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
             email = request.POST['email']
-            if password1 == password2:
-                if User.objects.filter(username=username).exists():
-                    messages.info(request, 'Username Already Taken!!')
-                    return redirect('/users/register') 
-                elif User.objects.filter(email=email).exists():
-                    messages.info(request, 'Email Already Taken!!')
-                    return redirect('users/register') 
+            if form.is_valid():
+                if password1 == password2:
+                    if User.objects.filter(username=username).exists():
+                        messages.info(request, 'Username Already Taken!!')
+                        return redirect('/users/register') 
+                    elif User.objects.filter(email=email).exists():
+                        messages.info(request, 'Email Already Taken!!')
+                        return redirect('users/register') 
+                    else:
+                        form.save()
+                        messages.info(request, 'Account Created!! Please login to upload your first pic.')
+                        return redirect('/')
                 else:
-                    user = User.objects.create_user(first_name=first_name, password=password1, email=email, last_name=last_name, username=username)
-                    user.save()
-                    auth.login(request, user)
-                    messages.info(request, 'User Created!!')
-                    return redirect('/')
+                    messages.info(request, 'Password Not Matching!!')
+                    return redirect('users/register')  
             else:
-                messages.info(request, 'Password Not Matching!!')
-                return redirect('users/register')  
-        else:   
-            return render(request, 'users/register.html')
+                messages.info(request, 'There is some error processing your information. Please try again!!')
+                return redirect('users/register')
+        else:
+            return render(request, template_name, {'form':form})  
 
 def login(request):
     if request.user.is_authenticated:
@@ -62,6 +68,19 @@ def login(request):
                 return redirect('login') 
         else:   
             return render(request, 'users/login.html')
+
+def update(request, pk, template_name='users/edit.html'):
+    user = get_object_or_404(CustomUser, pk=pk)
+    form = CustomUserChangeForm(request.POST or None, request.FILES or None, instance=user)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Profile Updated Successfully!!')
+            return redirect('/'+str(user.id))
+        else:
+            messages.info(request, 'There is some error processing your information. Please try again!!' + str(form.errors))
+            return redirect(str(user.id))
+    return render(request, template_name, {'form':form})
 
 def logout(request):
     

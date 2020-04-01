@@ -26,7 +26,7 @@ SECRET_KEY = '!_6294qj2@75wj6x5w7f=qen7qal#v103e#%(!9z2u&31o&_eo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['showyourtalent.herokuapp.com', 'localhost', '15.222.46.23']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -59,6 +59,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'syt.urls'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 TEMPLATES = [
     {
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'syt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'syt_dev',
+        'NAME': 'syt_dev_1',
         'USER': 'harry',
         'PASSWORD': 'harry',
         'HOST': 'localhost',
@@ -126,6 +127,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

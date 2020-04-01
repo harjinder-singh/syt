@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from photos.models import *
 from comments.forms import CommentForm
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your views here.
 @login_required(login_url='/users/login')
