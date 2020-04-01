@@ -9,8 +9,11 @@
                 </div> 
                 <div class="profile-user-settings">
                     <h1 class="profile-user-name">{{pr_user.username}}</h1>
-                    <a href="{% url 'update_user' pr_user.id %}" class="btn btn-info" role="button">Edit Profile</a>
-                    {%if user != pr_user%}
+    
+                    {%if user == pr_user%}
+                        <span><a href="{% url 'update_user' pr_user.id %}" class="btn btn-info" role="button">Edit Profile</a></span>
+                        
+                      {%else%}
                         {% if not following%}
                             <a href="{% url 'follow' user_id=pr_user.id %}" class="btn btn-info" role="button">Follow</a> </a>
                         {%else%}
