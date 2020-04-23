@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'comments.apps.CommentsConfig',
     'mptt',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

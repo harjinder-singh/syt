@@ -25,7 +25,8 @@ urlpatterns = [
     path('<int:pk>', views.profile, name='profile'),
     path('explore/', views.explore, name='explore'),
     path('users/', include('users.urls')),
-    path('p/', include('photos.urls'))
+    path('p/', include('photos.urls')),
+    path('api/v1/users/', include('users.urls'))
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

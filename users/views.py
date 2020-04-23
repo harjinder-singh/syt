@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect
 from .forms import CustomUserCreationForm
 from .forms import CustomUserChangeForm
 from django.contrib.auth import get_user_model
+from rest_framework import generics
+from .serializers import UserSerializer
 User = get_user_model()
 #from django.contrib.auth.decorators import login_required
 
@@ -97,4 +99,9 @@ def unfollow(request, fol_id):
     fol = Follower.objects.get(pk=fol_id)
     fol.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+class ListUsersView(generics.ListAPIView):
+
+    queryset = User.objects.filter(is_staff=False)
+    serializer_class = UserSerializer
 
