@@ -3,8 +3,6 @@ from django.conf.urls import url
 
 from . import views
 
-from .views import *
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('register', views.register, name="register"),
@@ -12,6 +10,5 @@ urlpatterns = [
     path('logout', views.logout, name="logout"),
     path('edit/<int:pk>', views.update, name='update_user'),
     url(r'^follow/(?P<user_id>\d+)/$', views.follow, name='follow'),
-    url(r'^unfollow/(?P<fol_id>\d+)/$', views.unfollow, name='unfollow'),
-    path('lst', ListUsersView.as_view(), name="users-all")
+    url(r'^unfollow/(?P<fol_id>\d+)/$', views.unfollow, name='unfollow')
 ]
