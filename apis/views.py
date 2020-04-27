@@ -36,3 +36,10 @@ def login(request):
 def listUsers(request):
     data = User.objects.filter(is_staff=False).values('username', 'first_name', 'last_name', 'email')
     return Response(data, status=HTTP_200_OK)
+
+@csrf_exempt
+@api_view(["GET"])
+def listimages(request):
+    user = request.user
+    images = user.photos.all().values("description", "pic", "created_at")
+    return Response(images, status=HTTP_200_OK)
