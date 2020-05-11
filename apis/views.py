@@ -41,5 +41,5 @@ def listUsers(request):
 @api_view(["GET"])
 def listimages(request):
     user = request.user
-    images = user.photos.all().values("description", "pic", "created_at")
+    images = images = user.photos.all().values("id","user", "description", "pic", "created_at", "updated_at")
     return Response(images, status=HTTP_200_OK)
