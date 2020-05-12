@@ -11,6 +11,7 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from photos.models import *
 User = get_user_model()
 
 @csrf_exempt
@@ -27,7 +28,7 @@ def login(request):
         return Response({'error': 'Invalid Credentials'},
                         status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key},
+    return Response({'token': token.key, 'user_id': user.id},
                     status=HTTP_200_OK)
 
 @csrf_exempt
@@ -40,6 +41,5 @@ def listUsers(request):
 @csrf_exempt
 @api_view(["GET"])
 def listimages(request):
-    user = request.user
-    images = images = user.photos.all().values("id","user", "description", "pic", "created_at", "updated_at")
+    images = Photo.objects.all().values("id","user", "description", "pic", "created_at", "updated_at")
     return Response(images, status=HTTP_200_OK)
