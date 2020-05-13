@@ -43,7 +43,7 @@ def listUsers(request):
 def listimages(request):
     all_images = Photo.objects.all()
     user_ids = all_images.values_list('user', flat=True)
-    users = User.objects.filter(id__in=user_ids).values('id', 'username')
+    users = User.objects.filter(id__in=user_ids).values('id', 'username', 'pic')
     images = all_images.values("id","user", "description", "pic", "created_at", "updated_at")
     data = {"users": users, "images": images}
     return Response(data, status=HTTP_200_OK)
