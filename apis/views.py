@@ -41,5 +41,9 @@ def listUsers(request):
 @csrf_exempt
 @api_view(["GET"])
 def listimages(request):
-    images = Photo.objects.all().values("id","user", "description", "pic", "created_at", "updated_at")
-    return Response(images, status=HTTP_200_OK)
+    all_images = Photo.objects.all()
+    user_ids = all_images.values_list('user', flat=True)
+    users = User.objects.filter(id__in=user_ids).values('id', 'username')
+    images = all_images.values("id","user", "description", "pic", "created_at", "updated_at")
+    data = {"users": users, "images": images}
+    return Response(data, status=HTTP_200_OK)
