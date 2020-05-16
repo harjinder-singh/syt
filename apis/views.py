@@ -47,3 +47,11 @@ def listimages(request):
     images = all_images.values("id","user", "description", "pic", "created_at", "updated_at")
     data = {"users": users, "images": images}
     return Response(data, status=HTTP_200_OK)
+
+@csrf_exempt
+@api_view(["GET"])
+def profile(request):
+    followers = request.user.followers.values("id","follower", "following", "created_at", "updated_at")
+    following = request.user.following.values("id","follower", "following", "created_at", "updated_at")
+    data = {"following": following, "followers": followers}
+    return Response(data, status=HTTP_200_OK)
