@@ -232,6 +232,30 @@
           $(".nevermind").click(function () {
             $("#id_pic").val('');
           });
+
+          $("#like_image, #unlike_image").click(function (e){
+            e.preventDefault();
+            var endpoint = $(this).attr("data-url");
+            $link = $(this);
+            $.ajax({
+                method: 'GET',
+                url: endpoint,
+                contentType: "application/json",
+                success: function (data) {
+                    if(data.event == 'Like'){
+                      $link.html('Unlike');
+                      $link.attr('data-url', '/p/unlike/' + data.id +'/');
+                    }else{
+                      $link.html('Like');
+                      $link.attr('data-url', '/p/like/' + data.id +'/');
+                    }
+                },
+                error: function (error_data) {
+                    alert("Error");
+                    console.log(error_data);
+                }
+            })
+          });
     
         });
       </script>

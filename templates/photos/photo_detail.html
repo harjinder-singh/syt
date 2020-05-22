@@ -13,9 +13,9 @@
                             <span>{{object.created_at | date:'F d,Y'}}</span>
                             <span>
                                 {% if not liked%}
-                                    <a href="{% url 'like' pic_id=object.id %}">Like</a>
+                                    <a href="#" id="like_image" data-url="{% url 'like' pic_id=object.id  %}">Like</a>
                                 {%else%}
-                                    <a href="{% url 'unlike' pic_id=object.id %}">Unlike</a>
+                                    <a href="#" id="unlike_image" data-url="{% url 'unlike' pic_id=object.id %}">Unlike</a>
                                 {%endif%}
                             </span>
                             <span>{{object.comments.all.count}} Comment</span>

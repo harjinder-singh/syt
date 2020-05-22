@@ -9,6 +9,7 @@ from likes.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.http.response import JsonResponse
 
 @login_required(login_url='/users/login')
 def photo_list(request, template_name='photos/photo_list.html'):
@@ -68,9 +69,11 @@ def photo_delete(request, pk, template_name='photos/photo_confirm_delete.html'):
 def like_image(request, pic_id):
     pic = Photo.objects.filter(pk=pic_id)[0]
     Like.objects.create(user=request.user, pic=pic)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    data = {}
+    return JsonResponse({'success':True, 'id':pic.id, 'event': 'Like'})
 
 def unlike_image(request, pic_id):
     like = Like.objects.get(pic_id=pic_id, user_id= request.user.id)
     like.delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    data = {}
+    return JsonResponse({'success':True, 'id':pic_id, 'event': 'Unlike'})

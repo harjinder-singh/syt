@@ -28,12 +28,12 @@
                             <div class="text text-2 pt-2 mt-3">
                                 <div class="meta-wrap">
                                     <p class="meta">
-                                        <span>Dec 14, 2018</span>
+                                        <span>{{image.created_at | date:'F d,Y'}}</span>
                                         <span>
                                             {% if not image.id in liked%}
-                                                <a href="{% url 'like' pic_id=image.id %}">Like</a>
+                                                <a href="#" id="like_image" data-url="{% url 'like' pic_id=image.id  %}">Like</a>
                                             {%else%}
-                                                <a href="{% url 'unlike' pic_id=image.id %}">Unlike</a>
+                                                <a href="#" id="unlike_image" data-url="{% url 'unlike' pic_id=image.id %}">Unlike</a>
                                             {%endif%}
                                         </span>
                                         <span><a href="{% url 'photo_view' image.id%}">{{image.comments.all.count}} Comment</a></span>
