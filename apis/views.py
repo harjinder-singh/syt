@@ -12,6 +12,7 @@ from rest_framework.status import (
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from photos.models import *
+from photos.forms import PhotoForm
 User = get_user_model()
 
 @csrf_exempt
@@ -55,3 +56,11 @@ def profile(request):
     following = request.user.following.values("id","follower", "following", "created_at", "updated_at")
     data = {"following": following, "followers": followers}
     return Response(data, status=HTTP_200_OK)
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def imageUpload(request):
+    user = User.objects.filter(pk=request.POST['user'])[0]
+    Photo.objects.create(pic=request.FILES['pic'], user=user, description=request.POST['description'])
+    return Response({}, status=HTTP_200_OK)

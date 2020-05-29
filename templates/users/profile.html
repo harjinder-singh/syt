@@ -15,9 +15,9 @@
                         
                       {%else%}
                         {% if not following%}
-                            <a href="{% url 'follow' user_id=pr_user.id %}" class="btn btn-info" role="button">Follow</a> </a>
+                          <a href="{% url 'follow' user_id=pr_user.id %}" class="btn btn-info" role="button">Follow</a>
                         {%else%}
-                            <button type="button" class="btn btn-primary" >Following</button>
+                          <a href="{%url 'unfollow' pr_user.id %}" class="btn btn-info" role="button">Unfollow</a>
                         {%endif%}
                     {%endif%}
                 </div>

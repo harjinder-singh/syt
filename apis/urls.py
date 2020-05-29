@@ -7,5 +7,6 @@ urlpatterns = [
     path('users', views.listUsers),
     path('login', views.login),
     path('images', views.listimages),
-    path('profile', views.profile)
+    path('profile', views.profile),
+    path('imageUpload', views.imageUpload)
 ]
