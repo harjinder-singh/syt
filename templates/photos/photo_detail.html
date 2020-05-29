@@ -1,60 +1,59 @@
 {%extends 'base.html'%}
 {% load custom_tags%}
 {%block content%}
-{% load mptt_tags %}
-<div class="col-lg-8">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="blog-entry ftco-animate">
-                <a href="#" class="img img-2" style="background-image: url({{object.pic.url}});"></a>
-                <div class="text text-2 pt-2 mt-3">
-                    <div class="meta-wrap">
-                        <p class="meta">
-                            <span>{{object.created_at | date:'F d,Y'}}</span>
-                            <span>
-                                {% if not liked%}
-                                    <a href="#" id="like_image" data-url="{% url 'like' pic_id=object.id  %}">Like</a>
-                                {%else%}
-                                    <a href="#" id="unlike_image" data-url="{% url 'unlike' pic_id=object.id %}">Unlike</a>
-                                {%endif%}
-                            </span>
-                            <span>{{object.comments.all.count}} Comment</span>
-                            <span>{% total_likes object.id%} Likes</span>
-                            {% if is_owner%}
-                                <span><a href="{% url 'photo_edit' object.id %}">Edit</a></span>
-                                <span><a href="{% url 'photo_delete' object.id %}">Delete</a></span>
-                            {% endif%}
-                        </p>
-                    </div>
-                    <p class="mb-4">{{object.description}}</p>
-                    {% recursetree comments %}
-                        
-                            
-                        <div class="comment">
-                            <div class="date"><span><b><a href="{% url 'profile' node.user.id%}">{{ node.user.username }}</a></b> {{ node.text }}</span></div>
-                            
+    {% load mptt_tags %}
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="blog-entry ftco-animate">
+                    <a href="#" class="img img-2" style="background-image: url({{object.pic.url}});"></a>
+                    <div class="text text-2 pt-2 mt-3">
+                        <div class="meta-wrap">
+                            <p class="meta">
+                                <span>{{object.created_at | date:'F d,Y'}}</span>
+                                <span>
+                                    {% if not liked%}
+                                        <a href="#" id="like_image" data-url="{% url 'like' pic_id=object.id  %}">Like</a>
+                                    {%else%}
+                                        <a href="#" id="unlike_image" data-url="{% url 'unlike' pic_id=object.id %}">Unlike</a>
+                                    {%endif%}
+                                </span>
+                                <span>{{object.comments.all.count}} Comment</span>
+                                <span>{% total_likes object.id%} Likes</span>
+                                {% if is_owner%}
+                                    <span><a href="{% url 'photo_edit' object.id %}">Edit</a></span>
+                                    <span><a href="{% url 'photo_delete' object.id %}">Delete</a></span>
+                                {% endif%}
+                            </p>
                         </div>
-                        {% if not node.is_leaf_node %}
-                            <div class="children">
-                                {{ children }}
+                        <p class="mb-4">{{object.description}}</p>
+                        {% recursetree comments %}
+                            
+                                
+                            <div class="comment">
+                                <div class="date"><span><b><a href="{% url 'profile' node.user.id%}">{{ node.user.username }}</a></b> {{ node.text }}</span></div>
+                                
                             </div>
-                        {% endif %}
-                        
-                    {% endrecursetree %}
-                    {% if user.is_authenticated %}
-                        <form method = "post" style="margin-top: 1.3em;"> 
-                            {% csrf_token %} 
-                            {{ form}} 
-                            <button type="submit" class="btn btn-primary btn-lg">Submit</button> 
-                        </form>
-                    {%else%}
-                    Login to comment!!
-                    {%endif%}
+                            {% if not node.is_leaf_node %}
+                                <div class="children">
+                                    {{ children }}
+                                </div>
+                            {% endif %}
+                            
+                        {% endrecursetree %}
+                        {% if user.is_authenticated %}
+                            <form method = "post" style="margin-top: 1.3em;"> 
+                                {% csrf_token %} 
+                                {{ form}} 
+                                <button type="submit" class="btn btn-primary btn-lg">Submit</button> 
+                            </form>
+                        {%else%}
+                        Login to comment!!
+                        {%endif%}
+                    </div>
                 </div>
+                
             </div>
-            
         </div>
     </div>
-  
-  </div>
-  {%endblock%}
+{%endblock%}

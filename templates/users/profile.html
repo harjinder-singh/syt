@@ -38,9 +38,9 @@
         <main>
             <div class="container"> 
                 <div class="gallery">
-                    {% for image in pr_user.photos.all%}
+                    {% for image in images%}
                     <div class="gallery-item" tabindex="0">
-                        <img src="{{image.pic.url}}" class="gallery-image" alt="">
+                        <img src="{{image.pic.url}}" class="gallery-image" alt="" style="border-radius: 5%;">
                         <div class="gallery-item-info">
                             <ul>
                                 <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fa fa-heart" aria-hidden="true"></i> {{image.likes.count}}</li>
