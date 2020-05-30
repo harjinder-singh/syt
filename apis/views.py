@@ -59,8 +59,7 @@ def profile(request):
 
 @csrf_exempt
 @api_view(["POST"])
-@permission_classes((AllowAny,))
 def imageUpload(request):
-    user = User.objects.filter(pk=request.POST['user'])[0]
+    user = request.user
     Photo.objects.create(pic=request.FILES['pic'], user=user, description=request.POST['description'])
     return Response({}, status=HTTP_200_OK)
