@@ -33,3 +33,16 @@ class PhotoForm(forms.ModelForm):
         cropped_image.save(photo.pic.path,"JPEG", quality=100)
 
         return photo
+
+class EditPhotoForm(forms.ModelForm):
+
+    class Meta:
+        model = Photo
+        fields = ('description','user')
+
+    def __init__(self, *args, **kwargs):
+        from django.forms.widgets import HiddenInput
+        hide_condition = kwargs.pop('hide_condition',None)
+        super(EditPhotoForm, self).__init__(*args, **kwargs)
+        if hide_condition:
+            self.fields['user'].widget = HiddenInput() 

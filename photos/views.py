@@ -48,10 +48,11 @@ def photo_create(request, template_name='photos/photo_form.html'):
 
 def photo_update(request, pk, template_name='photos/photo_form.html'):
     image = get_object_or_404(Photo, pk=pk)
-    form = PhotoForm(request.POST, request.FILES, instance=image)
-    if form.is_valid():
-        form.save()
-        return redirect('photo_list')
+    form = EditPhotoForm(request.POST or None, request.FILES or None, instance=image, hide_condition=True)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('photo_list')
     return render(request, template_name, {'form':form})
 
 @login_required(login_url='/users/login')
