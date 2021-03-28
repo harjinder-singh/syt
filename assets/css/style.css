@@ -7424,7 +7424,7 @@ h1, h2, h3, h4, h5,
           -o-transform: scaleX(1);
           transform: scaleX(1); }
   #colorlib-aside .colorlib-footer {
-    position: absolute;
+    position: relative;
     bottom: 40px;
     left: 0;
     right: 0;
@@ -8552,6 +8552,10 @@ textarea.form-control {
   -webkit-animation: loader-dash 1.5s ease-in-out infinite;
   animation: loader-dash 1.5s ease-in-out infinite;
   stroke-linecap: round; }
+
+.profile-btn {
+  font-size: large;
+}
 
 @-webkit-keyframes loader-rotate {
   100% {

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mptt',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -96,7 +97,7 @@ WSGI_APPLICATION = 'syt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'syt_dev_1',
+        'NAME': 'syt_dev',
         'USER': 'harry',
         'PASSWORD': 'harry',
         'HOST': 'localhost',

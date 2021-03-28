@@ -1,34 +1,40 @@
 {%extends 'base.html'%}
 {%load static%}
 {%block content%}
-    <div class="col-lg-12">
+    <div class="col l12 m12 s12">
         <div class="row">
-            <div class="profile">
-                <div class="profile-image"> 
-                    <img src="{{pr_user.pic.url}}" width="152px" height="152px" alt="">    
+            <div class="col l12 m12 s12 profile">
+                <div class="col l12 m12 s12 profile-image"> 
+                    <img src="{{pr_user.pic.url}}" width="150px" height="80%" alt="">    
                 </div> 
-                <div class="profile-user-settings">
-                    <h1 class="profile-user-name">{{pr_user.username}}</h1>
-    
-                    {%if user == pr_user%}
-                        <span><a href="{% url 'update_user' pr_user.id %}" class="btn btn-info" role="button">Edit Profile</a></span>
-                        
+                <div class="col l12 m12 s12 profile-user-settings">
+                  <div class="row">
+                    <div class="col l8 m6 s12">
+                      <h1 class="profile-user-name">{{pr_user.username}}</h1>
+                    </div>
+                    <div class="col l4 m6 s12">
+                      {%if user == pr_user%}
+                      <span><a href="{% url 'update_user' pr_user.id %}" class="btn btn-info profile-btn" role="button">Edit
+                          Profile</a></span>
+                    
                       {%else%}
-                        {% if not following%}
-                          <a href="{% url 'follow' user_id=pr_user.id %}" class="btn btn-info" role="button">Follow</a>
-                        {%else%}
-                          <a href="{%url 'unfollow' pr_user.id %}" class="btn btn-info" role="button">Unfollow</a>
-                        {%endif%}
-                    {%endif%}
+                      {% if not following%}
+                      <a href="{% url 'follow' user_id=pr_user.id %}" class="btn btn-info profile-btn" role="button">Follow</a>
+                      {%else%}
+                      <a href="{%url 'unfollow' pr_user.id %}" class="btn btn-info profile-btn" role="button">Unfollow</a>
+                      {%endif%}
+                      {%endif%}
+                    </div>
+                  </div>
                 </div>
-                <div class="profile-stats">
-                    <ul>
+                <div class="col l12 m12 s12 profile-stats">
+                    <ul style="padding-left: 0;">
                         <li><span class="profile-stat-count">{{pr_user.photos.all.count}}</span> posts</li>
                         <li data-toggle="modal" data-target="#followers"><span class="profile-stat-count" >{{pr_user.followers.all.count}}</span> followers</li>
                         <li data-toggle="modal" data-target="#following"><span class="profile-stat-count">{{pr_user.following.all.count}}</span> following</li>
                     </ul>
                 </div>
-                <div class="profile-bio">
+                <div class="col l12 m12 s12 profile-bio">
                     <p><span class="profile-real-name">Bio</span> {{pr_user.description}}</p>
                 </div>    
             </div>
