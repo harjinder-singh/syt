@@ -8,7 +8,7 @@ function PostImage(props){
 
     return props.images.map(function(image) {
         return (
-            <div className="blog-entry ftco-animate">
+            <div className="blog-entry">
             <div className="text text-2 pt-2 mt-3">
                 <div className="meta-wrap">
                     <p className="meta">
@@ -21,7 +21,7 @@ function PostImage(props){
             <div className="text text-2 pt-2 mt-3">
                 <div className="meta-wrap">
                     <p className="meta">
-                        <span>{date.format(new Date(), "YYYY-MM-DD, HH:mm")}</span>
+                        <span>{date.format(image.created_at, "YYYY-MM-DD, HH:mm")}</span>
                         <span>
                             <a href="">Like</a>
                         </span>
@@ -69,7 +69,7 @@ function GalleryCustomizer(props) {
 
     return(
         <React.Fragment>
-            <div class="col-md-3">
+            <div class="col-md-4" id="root">
                 <PostImage images={images}/>
             </div>
         </React.Fragment>
